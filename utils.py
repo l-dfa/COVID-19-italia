@@ -1,9 +1,18 @@
 # filename utils.py
 #   a module of utilities
 
+import configparser
 import csv
-from pathlib import Path
 import sys
+
+from pathlib import Path
+
+import paramiko
+
+
+FILE_CONFIG = './utils.conf'
+config = configparser.ConfigParser()   # a config parser
+config.read(Path(FILE_CONFIG))
 
 DIR_ARTICLE  = './article'
 DIR_TEMPLATE = './template'
@@ -11,16 +20,18 @@ DIR_IMG      = './images'    # images directory for infection in Italy
 DIR_DATA     = './data'      # data directory
 DIR_WIMG     = './world'     # images directory for worldwide infection
 
-HOST = '151.11.50.179'
-USER = 'root'
-PKEY = r'C:\Bin\PuTTYPortable\Data\settings\hostek2\id_rsa'
-TO   = 5.0
+HOST = config['production']['HOST']
+USER = config['production']['USER']
+PKEY = config['production']['PKEY']
+TO   = 5.0                   # timeout 5 sec
 
+D_FMT   = '%Y-%m-%d'              # format date as yyyy-mm-dd
+D_FMT2  = '%d/%m/%Y'              # format date as dd/mm/yyyy
+DT_FMT  = '%Y-%m-%dT%H:%M:%S'     # format datetime as yyyy-mm-ddThh:mm:ss
+DT_FMT2 = '%Y-%m-%d %H:%M:%S'     # format datetime as yyyy-mm-dd hh:mm:ss
 
-D_FMT = '%Y-%m-%d'               # format date as yyyy-mm-dd
-DT_FMT = '%Y-%m-%d %H:%M:%S'     # format date as yyyy-mm-dd hh:mm:ss
-
-DIR_ROOT_LDFA = Path('/Dati/Studio/Sviluppi/ldfa/contents')
+# paths to ldfa filesystem
+DIR_ROOT_LDFA = Path(config['ldfa']['DIR_ROOT_LDFA'])
 DIR_LDFA = {
     'articles':     DIR_ROOT_LDFA / 'articles', 
     'data_italy':   DIR_ROOT_LDFA / 'media/data/204', 
@@ -29,7 +40,8 @@ DIR_LDFA = {
     'images_world': DIR_ROOT_LDFA / 'media/images/210', 
 }
 
-DIR_ROOT_PRODUCTION = '/usr/share/nginx/html/ldfa/rstsite/contents'
+# paths to production server
+DIR_ROOT_PRODUCTION = config['production']['DIR_ROOT_PRODUCTION']
 DIR_PRODUCTION = {
     'articles':     DIR_ROOT_PRODUCTION + '/' + 'articles', 
     'data_italy':   DIR_ROOT_PRODUCTION + '/' + 'media/data/204', 
@@ -38,49 +50,249 @@ DIR_PRODUCTION = {
     'images_world': DIR_ROOT_PRODUCTION + '/' + 'media/images/210', 
 }
 
-def get_date(v):
-    '''get date list from list of dicts
-    
-       param: v        list of dicts - [{fld1: val11, fld2:val12, ...},
-                                       {fld1: val21, fld2:val22, ...},
-                                       ... ]
-       return: a list of date
-       
-       Note:
-         - key 'data' identifies the date to extract (it's in italian language)
-         - being a list, the returned value has the usual index operations;
-           e.g. to get the last 4 days: get_date(v)[-4:]
+# START columns of pandas dataframe from csv and excel files
+
+# Italian national trend csv
+# example:
+#     data,stato,ricoverati_con_sintomi,terapia_intensiva,totale_ospedalizzati,isolamento_domiciliare,totale_attualmente_positivi,nuovi_attualmente_positivi,dimessi_guariti,deceduti,totale_casi,tamponi,note_it,note_en
+#     2020-02-24T18:00:00,ITA,101,26,127,94,221,221,1,7,229,4324,,
+# we do not import these fields: note_it, note_en
+COLUMNS_ITALY = {
+    'it': {
+        'data': 'data',
+        'stato': 'stato',
+        'ricoverati_con_sintomi': 'ricoverati con sintomi',
+        'terapia_intensiva': 'terapia intensiva',
+        'totale_ospedalizzati': 'ospedalizzati',
+        'isolamento_domiciliare': 'isolamento domiciliare',
+        'totale_positivi': 'positivi',
+        'variazione_totale_positivi': 'variazione positivi',
+        'nuovi_positivi': 'nuovi positivi',
+        'dimessi_guariti': 'guariti',
+        'deceduti': 'deceduti',
+        'totale_casi': 'totale casi',
+        'tamponi': 'tamponi',
+    },
+    'en': {
+        'data': 'date',
+        'stato': 'state',
+        'ricoverati_con_sintomi': 'hospitalized',
+        'terapia_intensiva': 'intensive care',
+        'totale_ospedalizzati': 'overall hospit.',
+        'isolamento_domiciliare': 'quarantine at home',
+        'totale_positivi': 'positives',
+        'variazione_totale_positivi': 'change of positives',
+        'nuovi_positivi': 'new positives',
+        'dimessi_guariti': 'healed',
+        'deceduti': 'deceased',
+        'totale_casi': 'overall cases',
+        'tamponi': 'swab',
+    },
+}
+
+# Italian regional trends csv
+# example:
+#    data,stato,codice_regione,denominazione_regione,lat,long,ricoverati_con_sintomi,terapia_intensiva,totale_ospedalizzati,isolamento_domiciliare,totale_attualmente_positivi,nuovi_attualmente_positivi,dimessi_guariti,deceduti,totale_casi,tamponi,note_it,note_en
+#    2020-02-24T18:00:00,ITA,13,Abruzzo,42.35122196,13.39843823,0,0,0,0,0,0,0,0,0,5,,
+# we do not import these fields: lat, long, note_it, note_en
+COLUMNS_RITALY = {
+    'it': {
+        'data': 'data',
+        'stato': 'stato',
+        'codice_regione': 'codice_regione',
+        'denominazione_regione': 'denominazione_regione',
+        'ricoverati_con_sintomi': 'ricoverati_con_sintomi',
+        'terapia_intensiva': 'terapia_intensiva',
+        'totale_ospedalizzati': 'ospedalizzati',
+        'isolamento_domiciliare': 'isolamento_domiciliare',
+        'totale_positivi': 'positivi',
+        'variazione_totale_positivi': 'variazione_positivi',
+        'nuovi_positivi': 'nuovi_positivi',
+        'dimessi_guariti': 'guariti',
+        'deceduti': 'deceduti',
+        'totale_casi': 'totale_casi',
+        'tamponi': 'tamponi',
+    },
+    'en': {
+        'data': 'date',
+        'stato': 'state',
+        'codice_regione': 'region id.',
+        'denominazione_regione': 'region name',
+        'ricoverati_con_sintomi': 'hospitalized',
+        'terapia_intensiva': 'intensive care',
+        'totale_ospedalizzati': 'overall hospit.',
+        'isolamento_domiciliare': 'quarantine at home',
+        'totale_positivi': 'positives',
+        'variazione_totale_positivi': 'change of positives',
+        'nuovi_positivi': 'new positives',
+        'dimessi_guariti': 'healed',
+        'deceduti': 'deceased',
+        'totale_casi': 'overall cases',
+        'tamponi': 'swab',
+    },
+}
+
+
+# world trend csv
+# example (beware of row index in 1st position)
+#     ,dateRep,day,month,year,cases,deaths,countriesAndTerritories,geoId
+#     0,30/03/2020,30,3,2020,8,1,Afghanistan,AF
+# 
+# dataframe for world data, after shape_world
+#     #   Column     Non-Null Count  Dtype
+#     0   date       5841 non-null   object   this is a datetime.date yyyy-mm-dd
+#     1   day        5841 non-null   int64
+#     2   month      5841 non-null   int64
+#     3   year       5841 non-null   int64
+#     4   cases      5841 non-null   int64
+#     5   deaths     5841 non-null   int64
+#     6   countries  5841 non-null   object
+#     7   geoid      5835 non-null   object
+
+COLUMNS_WORLD = {
+    'it': {
+        'dateRep': 'data',
+        'day': 'giorno',
+        'month': 'mese',
+        'year': 'anno',
+        'cases': 'casi',
+        'deaths': 'decessi',
+        'countriesAndTerritories': 'paesi',
+        'geoId': 'geoid',
+    },
+    'en': {
+        'dateRep': 'date',
+        'day': 'day',
+        'month': 'month',
+        'year': 'year',
+        'cases': 'cases',
+        'deaths': 'death',
+        'countriesAndTerritories': 'country',
+        'geoId': 'geoid',
+    }
+}
+# END   columns of pandas dataframe from csv and excel files
+
+
+def load_df(fname, opener, cols=None, encoding='utf-8'):
     '''
-    l = list( set( [row['data'] for row in v] ) )
-    return sorted(l)
+    create a dataframe from a file
     
-def load_data(afile):
-    '''load a csv file as list of dicts
+    params:
+      - fname       str or Path - file to read
+      - opener      pandas method - usually pd.excel() or pd.read_csv()
+      - cols        dict - a collection f columns names and their translation in a certain language
+                           i.e. {col1: col1_lang, col2: col2_lang, ...}
+      - encoding    str - encoder to use reading dataframe
     
-       param: afile     str or FILE - whatever is good to 'open'
-       
-       return a list of dicts: [{fld1: val11, fld2: val12, ...},
-                                {fld1: val21, fld2: val22, ...},
-                                ... ]
+    return df a dataframe
     '''
-    with open(afile, 'r') as f:
-        v = list(csv.DictReader(f, delimiter=','))
-    return v
+
+    # get data, rename columns, drop duplicates, ignore nulls
+    df = opener(fname, encoding=encoding)
     
-def save_data(v, afile):
-    '''save a list of dicts as csv file
+    # drop all columns that are not present in cols
+    if not cols is None:
+        df_cols = list(df.columns)
+        for col in df_cols:
+            if not col in cols.keys():
+                df.drop(col, axis=1, inplace=True)
     
-       param:
-         - v         list of dicts
-         - afile     str or FILE - whatever is good to 'open'
-       
-       return 0 or raise exception
+    #df.rename(columns=cols, inplace=True) #ATTENZIONE
+    
+    ashape = df.shape
+    df.drop_duplicates(inplace=True)
+    if df.shape!=ashape:
+        print(f'duplicates dropped: {ashape[0]-df.shape[0]}')
+    return df
+
+def shape_data(df, cols, keyerr=True):
     '''
-    with open(afile, 'w', newline='') as f:
-        fieldnames = list(v[0].keys())
-        w = csv.DictWriter(f, delimiter=',', fieldnames=fieldnames)
-        first = {fname: fname for fname in fieldnames}
-        w.writerow(first)
-        for row in v:
-            w.writerow(row)
-    return 0
+    '''
+    if not keyerr:
+        for col in df.columns:
+            if col not in cols:
+                cols.pop(col)
+    df.rename(columns=cols, inplace=True)
+    return df
+    
+
+#def get_date(v):
+#    '''get date list from list of dicts
+#    
+#       param: v        list of dicts - [{fld1: val11, fld2:val12, ...},
+#                                       {fld1: val21, fld2:val22, ...},
+#                                       ... ]
+#       return: a list of date
+#       
+#       Note:
+#         - key 'data' identifies the date to extract (it's in italian language)
+#         - being a list, the returned value has the usual index operations;
+#           e.g. to get the last 4 days: get_date(v)[-4:]
+#    '''
+#    l = list( set( [row['data'] for row in v] ) )
+#    return sorted(l)
+
+
+#def load_data(afile):
+#    '''load a csv file as list of dicts
+#    
+#       param: afile     str or FILE - whatever is good to 'open'
+#       
+#       return a list of dicts: [{fld1: val11, fld2: val12, ...},
+#                                {fld1: val21, fld2: val22, ...},
+#                                ... ]
+#    '''
+#    with open(afile, 'r') as f:
+#        v = list(csv.DictReader(f, delimiter=','))
+#    return v
+
+
+#def save_data(v, afile):
+#    '''save a list of dicts as csv file
+#    
+#       param:
+#         - v         list of dicts
+#         - afile     str or FILE - whatever is good to 'open'
+#       
+#       return 0 or raise exception
+#    '''
+#    with open(afile, 'w', newline='') as f:
+#        fieldnames = list(v[0].keys())
+#        w = csv.DictWriter(f, delimiter=',', fieldnames=fieldnames)
+#        first = {fname: fname for fname in fieldnames}
+#        w.writerow(first)
+#        for row in v:
+#            w.writerow(row)
+#    return 0
+
+def to_production(source_data_dir, dest_data_dir, source_image_dir, dest_image_dir, data_files, image_files):
+    '''
+    copy files from the project filesystem to production server
+    
+    params:
+      - source_data_dir,   str - from directory of data files
+      - dest_data_dir,     str - to directory of data files
+      - source_image_dir,  str - from directory of image files
+      - dest_image_dir,    str - to directory of image files
+      - data_files,        list - file names of data
+      - image_files        list - file names of images
+    
+    return None
+    '''
+    private_key = paramiko.RSAKey.from_private_key_file(PKEY)
+    with paramiko.SSHClient() as ssh_client:
+        ssh_client.load_host_keys('known_hosts')
+        #ssh_client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+        ssh_client.connect(hostname=HOST, username=USER, pkey=private_key, timeout=TO, allow_agent=False, look_for_keys=False)
+        sftp_client = ssh_client.open_sftp()
+        
+        # world data to production directory
+        for afile in data_files:
+            sftp_client.put(Path(source_data_dir) / afile, dest_data_dir +'/'+ afile)  #local, remote
+        
+        # world images to production directory
+        for afile in image_files:
+            sftp_client.put(Path(source_image_dir) / afile, dest_image_dir +'/'+ afile)  #local, remote
+        
+    return

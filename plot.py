@@ -22,82 +22,155 @@ import statistics as stats
 import csv
 import numpy as np
 import os
-#from enum import IntEnum
+import sys
+
 from datetime import datetime, date
 from pathlib import Path
+
 from matplotlib import pyplot as plt, dates as mdates
-import sys
+import pandas   as pd
 
 import utils as u
 
-#DIR_IMG  = './images'
-#DIR_DATA = './data'
 FN = 'dpc-covid19-ita-andamento-nazionale.csv'
+RFN = 'dpc-covid19-ita-regioni.csv'
+IMG_MOST_HITTED_RFN = 'dpc-covid19-ita-regioni_most_hitted.png'
+IMG_MOST_HITTED_RFN = 'dpc-covid19-ita-regioni_most_hitted.png'
 TITLE_IT = 'covid-19, italia'
 TITLE_EN = 'covid-19, italy'
-#DT_FMT = '%Y-%m-%d %H:%M:%S'
+N_MOST_HITTED = 6
 
-FIELDS = {
-    "data" :                   {'ndx': 0,  'it': "data",            'en': "date",},
-    "stato" :                  {'ndx': 1,  'it': "stato",           'en': "state",},
-    "ricoverati_con_sintomi" : {'ndx': 2,  'it': "ricoverati",      'en': "hospitalized",},
-    "terapia_intensiva" :      {'ndx': 3,  'it': "terapia intens.", 'en': "intensive care",},
-    "totale_ospedalizzati" :   {'ndx': 4,  'it': "totale ricov.",   'en': "overall hospit.",},
-    "isolamento_domiciliare" : {'ndx': 5,  'it': "domiciliare",     'en': "at home",},
-    "totale_attualmente_positivi" : {'ndx': 6, 'it': "positivi",       'en': "positives",},
-    "nuovi_attualmente_positivi" :  {'ndx': 7, 'it': "variazione positivi", 'en': "change of positives",}, 
-    "dimessi_guariti" :        {'ndx': 8,  'it': "guariti",         'en': "healed",},
-    "deceduti" :               {'ndx': 9,  'it': "deceduti",        'en': "deceased",},
-    "totale_casi" :            {'ndx': 10, 'it': "totali",          'en': "overall",},
-    "tamponi" :                {'ndx': 11, 'it': "tamponi",         'en': "swab",},
-}
+X11 = (
+    'aqua',
+    'aquamarine',
+    'beige',
+#    'black',
+    'blue',
+    'brown',
+    'cyan',
+    'darkblue',
+    'darkgreen',
+    'fuchsia',
+    'gold',
+    'green',
+    'grey',
+    'khaki',
+    'lime',
+    'magenta',
+    'navy',
+    'olive',
+    'orangered',
+    'purple',
+    'red',
+    'salmon',
+    'silver',
+    'violet',
+#    'white',
+    'yellow',
+    'yellowgreen',
+)
 
+#COLORMAP = 'inferno_r'
+COLORMAP = 'Set1'
     
-def str_to_values(v):
-    tmp = []
-    for row in v:
-        tmp_row = dict()
-        for key, value in row.items():
-            try:
-                if key=='data':                  # 1st element in row is date 'aaaa/mm/gg hh:mm:ss'
-                    tmp_row[key] = datetime.strptime(value, u.DT_FMT).date()
-                else:                      # other elements: try to convert to int, if fails, skip
-                    tmp_row[key] = int(value)
-            except ValueError:
-                tmp_row[key] = None
-        tmp.append(tmp_row)
-    return tmp
-    
-    
-def shape_data(v):
-    '''from v as strs and all data to right values and only useful data
+def shape_data(df):
     '''
-    return str_to_values(v)
+    convert data column from string to date
+    '''
+    # data from str to date
+    df['data'] = df['data'].map(lambda x: datetime.strptime(x, u.DT_FMT).date())
     
-def make_plot(v, filename, lang='it'):
-    ##language = 1 if lang=='it' else 2
-    ## read values from csv file
-    #with open(Path(u.DIR_DATA) / filename, 'r') as f:
-    #    v = list(csv.reader(f, delimiter=','))
-    #    
-    ##from string to values and extrapolate series to show
-    #v = str_to_values(v)
+    return df
     
-    x        = [v[r]['data']            for r in range(len(v))]
-    totali   = [v[r]['totale_casi']     for r in range(len(v))]
-    positivi = [v[r]['totale_attualmente_positivi'] for r in range(len(v))]
-    guariti  = [v[r]['dimessi_guariti'] for r in range(len(v))]
-    deceduti = [v[r]['deceduti']        for r in range(len(v))]
-    nuovi    = [v[r]['nuovi_attualmente_positivi']  for r in range(len(v))]
-    #print(len(v))
-    #print(len(guariti))
-    #print(guariti)
-    #sys.exit(0)
+def make_rplot(rdf, filename, **kwargs):
+    '''
+    line chart of regional trend
+    
+    params: 
+      - rdf          pandas dataframe - see u.COLUMNS_RITALY
+      - filename     str - filename of dataset, used to derive the plot filename
+      - min, max, xlabel, ylabel, title, lang
+    
+    return None
+    
+    side effect: store a file containing the draw
+    
+    note: see https://pythonconquerstheuniverse.wordpress.com/2012/02/15/mutable-default-arguments/
+          about how manage mutable default arguments (list, dict, ...S)
+    '''
+    
+    params = {'min', 'max', 'xlabel', 'ylabel', 'title', 'lang'}
+    keys = set(kwargs.keys())
+    if not keys <= params:
+        raise KeyError('make_rplot, unknown parameters: {}'.format(keys-params))
+    for dkey in params - keys:
+        if dkey == 'min': kwargs['min'] = -N_MOST_HITTED
+        elif dkey == 'max': kwargs['max'] = None
+        elif dkey == 'xlabel': kwargs['xlabel'] = ''
+        elif dkey == 'ylabel': kwargs['ylabel'] = ''
+        elif dkey == 'title': kwargs['title'] = ''
+        elif dkey == 'lang': kwargs['lang'] = 'it'
+        else: 
+            raise KeyError('make_rplot, what is it happening? {} is awkward'.format(dkey))
+    
+    #import pdb; pdb.set_trace()
+    bymax = rdf.groupby(by='codice_regione').agg(max).sort_values('totale_casi')
+    nmh = bymax.iloc[kwargs['min']:kwargs['max']] if kwargs['max'] is not None else bymax.iloc[kwargs['min']:]
+    regions = nmh['denominazione_regione']
+    
+    srdf1 = rdf[rdf['denominazione_regione'].isin(regions)]
+    
+    srdf11 = srdf1.pivot(index='data', columns='denominazione_regione', values='totale_casi')
+    srdf11.sort_values(['data'], inplace=True)
+    ax = srdf11.plot(
+                    figsize=(9,7),
+                    colormap=COLORMAP,
+                    rot=80
+                    )
+    ax.grid(linestyle='--', axis='both')
+    ax.set_title(kwargs['title'])
+    ax.set_xlabel(kwargs['xlabel'])
+    ax.set_ylabel(kwargs['ylabel'])
+    fig = ax.get_figure()
+    fig.subplots_adjust(bottom=0.2)
+    
+    if filename is None:
+        plt.show()
+    else:
+        if kwargs['lang']=='it':
+            plot_filename = os.path.splitext(filename)[0]+'.most_hitted.png'
+        else:
+            plot_filename = os.path.splitext(filename)[0]+'.most_hitted.en.png'
+            
+        ax.set_title(kwargs['title'])
+        plt.savefig(Path(u.DIR_IMG) / plot_filename, format='png') # show to file
+    plt.close()
+
+    
+def make_plot(df, filename, lang='it'):
+    '''
+    draw a line chart of national trend 
+    
+    params:
+      - df          pandas dataframe - see u.COLUMNS_ITALY
+      - filename    str - filename of dataset, used to derive the plot filename
+      - lang        'it' or 'en'
+    
+    return None
+    
+    side effect: store a file containing the draw
+    '''
+
+    x        = df['data']
+    totali   = df['totale_casi']
+    positivi = df['totale_positivi']
+    guariti  = df['dimessi_guariti']
+    deceduti = df['deceduti']
+    nuovi    = df['variazione_totale_positivi']
     
     fig = plt.figure(figsize=(9,7))
     ax1 = fig.add_axes([0.1,0.3,0.8,0.6])  # left, bottom, width, height
     ax2 = fig.add_axes([0.1,0.2,0.8,0.1], sharex=ax1)
-    
     
     ##plot figure with chosen language
     #plt.subplot(7,1,(1,6))
@@ -105,10 +178,10 @@ def make_plot(v, filename, lang='it'):
     ax1.spines['right'].set_color(None)
     ax1.spines['top'].set_color(None)
 
-    ax1.plot(x, totali,   'b', label=FIELDS['totale_casi'][lang])             # plotting values
-    ax1.plot(x, positivi, 'r', label=FIELDS['totale_attualmente_positivi'][lang])
-    ax1.plot(x, guariti,  'g', label=FIELDS["dimessi_guariti"][lang]) 
-    ax1.plot(x, deceduti, 'k', label=FIELDS['deceduti'][lang])
+    ax1.plot(x, totali,   'b', label=u.COLUMNS_ITALY[lang]['totale_casi'])             # plotting values
+    ax1.plot(x, positivi, 'r', label=u.COLUMNS_ITALY[lang]['totale_positivi'])
+    ax1.plot(x, guariti,  'g', label=u.COLUMNS_ITALY[lang]["dimessi_guariti"]) 
+    ax1.plot(x, deceduti, 'k', label=u.COLUMNS_ITALY[lang]['deceduti'])
     #ax1.set_xticklabels([])                                # doesn't work
     ax1.tick_params(axis='x', labelrotation=30)             # to hide under ax2
     ax1.legend(loc="upper left")
@@ -116,10 +189,13 @@ def make_plot(v, filename, lang='it'):
     #plt.subplot(7,1,7)
     ax2.grid(linestyle='--', axis='both')
     ax2.spines['right'].set_color(None)
-    ax2.plot(x, nuovi, 'r', label=FIELDS['nuovi_attualmente_positivi'][lang])
+    ax2.plot(x, nuovi, 'r', label=u.COLUMNS_ITALY[lang]['variazione_totale_positivi'])
     ax2.legend(loc="upper left")
     ax2.tick_params(axis='x', labelrotation=80)
     #ax2.set_xticklabels(x, rotation=85, horizontalalignment='right')
+    
+    #plt.show()                                # show interactively 
+    #sys.exit(0)
 
     if lang=='it':
         fig.suptitle(TITLE_IT)                # set plot title
@@ -130,21 +206,92 @@ def make_plot(v, filename, lang='it'):
         ax1.set_ylabel("number of cases")
         ax2.set_xlabel("date")
     
-    #plt.show()                                # show interactively 
     if lang=='it':
         plot_filename = os.path.splitext(filename)[0]+'.png'
     else:
         plot_filename = os.path.splitext(filename)[0]+'.en.png'
         
     plt.savefig(Path(u.DIR_IMG) / plot_filename, format='png') # show to file
+    return
+
+
+def make_national(df, column, filename, **kwargs):
+    '''
+    line chart of time trend of national daily cases
+    
+    params: 
+      - df          pandas dataframe - see u.COLUMNS_RITALY
+      - filename     str - filename of dataset, used to derive the plot filename
+      - min, max, xlabel, ylabel, title, lang
+    
+    return None
+    
+    side effect: store a file containing the draw
+    
+    note: see https://pythonconquerstheuniverse.wordpress.com/2012/02/15/mutable-default-arguments/
+          about how manage mutable default arguments (list, dict, ...S)
+    '''
+    
+    params = {'legend', 'xlabel', 'ylabel', 'title', 'lang'}
+    keys = set(kwargs.keys())
+    if not keys <= params:
+        raise KeyError('make_national_daily, unknown parameters: {}'.format(keys-params))
+    for dkey in params - keys:
+        if   dkey == 'legend': kwargs['legend'] = False
+        elif dkey == 'xlabel': kwargs['xlabel'] = ''
+        elif dkey == 'ylabel': kwargs['ylabel'] = ''
+        elif dkey == 'title':  kwargs['title']  = ''
+        elif dkey == 'lang':   kwargs['lang']   = 'it'
+        else: 
+            raise KeyError('make_national_daily, what is it happening? {} is awkward'.format(dkey))
+    
+    #import pdb; pdb.set_trace()
+    df.sort_values(['data'], inplace=True)
+    ax = df.plot( x='data',
+                  y=column,
+                  legend=kwargs['legend'],
+                  figsize=(9,7),
+                  rot=80
+                )
+    ax.grid(linestyle='--', axis='both')
+    ax.set_title(kwargs['title'])
+    ax.set_xlabel(kwargs['xlabel'])
+    ax.set_ylabel(kwargs['ylabel'])
+    fig = ax.get_figure()
+    fig.subplots_adjust(bottom=0.2)
+    
+    if filename is None:
+        plt.show()
+    else:
+        if kwargs['lang']=='it':
+            plot_filename = os.path.splitext(filename)[0]+'.nuovi_positivi.png'
+        else:
+            plot_filename = os.path.splitext(filename)[0]+'.nuovi_positivi.en.png'
+            
+        ax.set_title(kwargs['title'])
+        plt.savefig(Path(u.DIR_IMG) / plot_filename, format='png') # show to file
+    plt.close()
+
     
 
-def main(afile):
-    v = u.load_data(Path(u.DIR_DATA) / afile)
-    sd = shape_data(v)
-    make_plot(sd, afile, 'it')
-    make_plot(sd, afile, 'en')
 
+def main(afile):
+    # national trend
+    #df = pd.read_csv(Path(u.DIR_DATA) / afile)
+    #df = shape_data(df)
+    #make_plot(df, afile, 'it')
+    #make_plot(df, afile, 'en')
+
+    #regional trend
+    #df = u.load_df(Path(u.DIR_DATA) / afile, pd.read_csv, u.COLUMNS_RITALY['it'], encoding='utf-8')
+    #df = shape_data(df)
+    #make_rplot(df, afile, xlabel='data', ylabel='numero totale di casi', title=f'Covid-19: andamento temporale per le {N_MOST_HITTED} regioni più colpite', lang = 'it' )
+    #make_rplot(df, afile, xlabel='date', ylabel='total number of cases', title=f'Covid-19: temporal trend for the {N_MOST_HITTED} most hitted regions', lang = 'en' )
+
+    df = u.load_df(Path(u.DIR_DATA) / afile, pd.read_csv, u.COLUMNS_ITALY['it'], encoding='utf-8')
+    df = shape_data(df)
+    make_national(df, 'nuovi_positivi', afile, xlabel='data', ylabel='numero giornaliero di nuovi casi', title=f'Covid-19: andamento temporale giornaliero di nuovi positivi (nazionale)', lang = 'it' )
+    make_national(df, 'nuovi_positivi', afile, xlabel='date', ylabel='daily number of new cases', title=f'Covid-19: time trend of daily (national) new cases', lang = 'en' )
 
 if __name__=='__main__':
     #print(len(sys.argv))
