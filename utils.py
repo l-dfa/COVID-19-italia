@@ -24,6 +24,7 @@ HOST = config['production']['HOST']
 USER = config['production']['USER']
 PKEY = config['production']['PKEY']
 TO   = 5.0                   # timeout 5 sec
+ENABLE_PRODUCTION = config['production']['ENABLE_PRODUCTION'] in ['true', 'True']
 
 D_FMT   = '%Y-%m-%d'              # format date as yyyy-mm-dd
 D_FMT2  = '%d/%m/%Y'              # format date as dd/mm/yyyy
@@ -31,6 +32,7 @@ DT_FMT  = '%Y-%m-%dT%H:%M:%S'     # format datetime as yyyy-mm-ddThh:mm:ss
 DT_FMT2 = '%Y-%m-%d %H:%M:%S'     # format datetime as yyyy-mm-dd hh:mm:ss
 
 # paths to ldfa filesystem
+ENABLE_LDFA = config['ldfa']['ENABLE_LDFA'] in ['true', 'True']
 DIR_ROOT_LDFA = Path(config['ldfa']['DIR_ROOT_LDFA'])
 DIR_LDFA = {
     'articles':     DIR_ROOT_LDFA / 'articles', 

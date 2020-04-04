@@ -347,8 +347,10 @@ def main(afile=p.FN):
     article = make_article(FN_EN_TEMPLATE, df, rdf, 'en', TAB_EN_TITLE)
     
     # ATTENZIONE RIMETTERE IN LINEA LE SEGUENTI
-    to_ldfa()
-    to_production()
+    if u.ENABLE_LDFA:
+        to_ldfa()
+    if u.ENABLE_PRODUCTION:
+        to_production()
 
 
 if __name__=='__main__':

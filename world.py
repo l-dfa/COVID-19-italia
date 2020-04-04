@@ -9,7 +9,6 @@ help = '''python world.py [--date=yyyy-mm-gg] [-d:true|false]
 options:
   --date   plot at indicated date (default: today; beware of format)
   -d       download data from Internet (default: True)
-  -p       copy results to production (default: True)
 '''
 
 import getopt
@@ -69,7 +68,7 @@ def arguments():
     global ADATE
     global PRODUCTION
     try:
-        opts, args = getopt.getopt(sys.argv[1:], "hd:p:", ["date=", "help", "download=", "production="])
+        opts, args = getopt.getopt(sys.argv[1:], "hd:", ["date=", "help", "download="])
     except getopt.GetoptError as err:
         # print help information and exit:
         print(err)  # will print something like "option -a not recognized"
@@ -81,8 +80,6 @@ def arguments():
             sys.exit()
         elif o in ("-d", "--download"):
             DOWNLOAD = True if a=="True" or a=="true" else False
-        elif o in ("-p", "--production"):
-            PRODUCTION = True if a=="True" or a=="true" else False
         elif o == "--date":
             # check string date format (yyyy-mm-dd)
             ADATE = datetime.strptime(a[:], u.D_FMT).date().strftime(u.D_FMT)
@@ -404,8 +401,9 @@ def main(adate):
     make_article(u.DIR_TEMPLATE+'/'+FN_EN_TEMPLATE, adate, df)
     
     # copy results to ldfa filesystem and to production
-    if PRODUCTION:
+    if u.ENABLE_LDFA:
         to_ldfa(adate)
+    if u.ENABLE_PRODUCTION:
         to_production(adate)
     
 
