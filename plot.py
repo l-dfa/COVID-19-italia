@@ -169,8 +169,10 @@ def make_plot(df, filename, lang='it'):
     nuovi    = df['variazione_totale_positivi']
     
     fig = plt.figure(figsize=(9,7))
-    ax1 = fig.add_axes([0.1,0.3,0.8,0.6])  # left, bottom, width, height
-    ax2 = fig.add_axes([0.1,0.2,0.8,0.1], sharex=ax1)
+    #ax1 = fig.add_axes([0.1,0.3,0.8,0.6])  # left, bottom, width, height
+    #ax2 = fig.add_axes([0.1,0.2,0.8,0.1], sharex=ax1)
+    ax1 = fig.add_axes([0.1,0.35,0.8,0.6])  # left, bottom, width, height
+    ax2 = fig.add_axes([0.1,0.20,0.8,0.15], sharex=ax1)
     
     ##plot figure with chosen language
     #plt.subplot(7,1,(1,6))
@@ -183,7 +185,8 @@ def make_plot(df, filename, lang='it'):
     ax1.plot(x, guariti,  'g', label=u.COLUMNS_ITALY[lang]["dimessi_guariti"]) 
     ax1.plot(x, deceduti, 'k', label=u.COLUMNS_ITALY[lang]['deceduti'])
     #ax1.set_xticklabels([])                                # doesn't work
-    ax1.tick_params(axis='x', labelrotation=30)             # to hide under ax2
+    #ax1.tick_params(axis='x', labelrotation=30)             # to hide under ax2
+    ax1.tick_params(axis='x', labelrotation=90)             # to hide under ax2
     ax1.legend(loc="upper left")
     
     #plt.subplot(7,1,7)
@@ -200,10 +203,12 @@ def make_plot(df, filename, lang='it'):
     if lang=='it':
         fig.suptitle(TITLE_IT)                # set plot title
         ax1.set_ylabel("numero di casi")
+        ax2.set_ylabel("n.ro di casi")
         ax2.set_xlabel("data")
     else:
         fig.suptitle(TITLE_EN)                # set plot title
         ax1.set_ylabel("number of cases")
+        ax2.set_ylabel("num. of cases")
         ax2.set_xlabel("date")
     
     if lang=='it':
