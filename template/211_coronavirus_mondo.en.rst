@@ -46,14 +46,15 @@ healed, but, for every single day, only the number of new cases and deaths.
 Consequently, adding the number of new cases day by day, it is possible
 to get only the **total** number of people affected by the virus.
 
-From the ECDC data I calculate the 10 countries that have the bigger number of
+From the ECDC data, I aggregate them about European Union Countries, 
+then I calculate the 10 countries that have the bigger number of
 affected people. Below I indicate the time series
 of the daily totals for these ten countries, as of January 14, 2020.
 
-.. image:: /media/images/210/covid19-worldwide-${UPDATED}.wchina.en.png
+.. image:: /media/images/210/covid19-worldwide-${UPDATED}_1-10.png
    :height: 700 px
    :width:  900 px
-   :scale: 75 %
+   :scale: 85 %
    :align: center
    :alt:   COVID-19, World
    :name:  COVID-19, World
@@ -62,17 +63,32 @@ of the daily totals for these ten countries, as of January 14, 2020.
 | 
   
 Instead, the following graph shows the trend of the overall cases,
-starting from February 20, 2020, eliminating the data of the most affected country. Thereby
-it is possible to better observe the trend in the latter period for the countries from the second to the tenth
+starting from February 20, 2020, eliminating the data of the two most affected countries. Thereby
+it is possible to better observe the trend in the latter period for the countries from the third to the tenth
 placed among those most affected by the virus.
 
-.. image:: /media/images/210/covid19-worldwide-${UPDATED}.en.png
+.. image:: /media/images/210/covid19-worldwide-${UPDATED}_3-10.png
    :height: 700 px
    :width:  900 px
-   :scale: 75 %
+   :scale: 85 %
    :align: center
    :alt:   COVID-19, World, without the most hitted country
    :name:  COVID-19, World, without the most hitted country
+
+|
+|
+
+Finally, below, the situation for the 10 most affected countries member of the European Union.
+Again starting from 20 February 2020.
+
+.. image:: /media/images/210/covid19-worldwide-${UPDATED}_eu_1-10.png
+   :height: 700 px
+   :width:  900 px
+   :scale: 85 %
+   :align: center
+   :alt:   COVID-19, Unione Europea
+   :name:  COVID-19, Unione Europea
+
 
 The data from which the graphs are derived can be consulted
 at `this address </media/data/210/covid19-worldwide-${UPDATED}.csv>`_
@@ -84,9 +100,20 @@ Hereafter a summary of the situation about the twenty most hitted countries
 at the uate date of this article. Total positive cases, deaths and ratio
 between deaths and total positive cases are reported.
 
-.. csv-table:: situation of twenty most hitted countries on $UPDATED
+In the first table European Union Countries are bundled.
+
+.. csv-table:: situation of twenty most hitted countries on $UPDATED, EU Countries bundled
 
 $DATA_TABLE
+
+|
+|
+
+Instead, hereafter the European Union Countries are unbundled.
+
+.. csv-table:: situation of twenty most hitted countries on $UPDATED, EU Countries unbundled
+
+$DATA_TABLE_EU
 
 
 Remarks

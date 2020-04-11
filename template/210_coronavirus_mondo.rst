@@ -45,15 +45,16 @@ guariti, ma, per ogni singolo giorno,  solo il numero di nuovi casi e i decessi.
 Di conseguenza, sommando giorno per giorno il numero di nuovi casi, è possibile
 ottenere solo il numero **complessivo** di persone colpite dal virus.
 
-Dai dati di ECDC calcolo i 10 paesi che hanno il più altro numero di 
+Dai dati di ECDC aggrego i numeri dei paesi che formano l'Unione Europea, 
+dopo di che calcolo i 10 paesi che hanno il più altro numero di 
 persone colpite. Qui di seguito indico l'andamento temporale 
 dei totali giornalieri per questi dieci paesi, a partire dal 14 gennaio 2020.
 
 
-.. image:: /media/images/210/covid19-worldwide-${UPDATED}.wchina.en.png
+.. image:: /media/images/210/covid19-worldwide-${UPDATED}_1-10.png
    :height: 700 px
    :width:  900 px
-   :scale: 75 %
+   :scale: 85 %
    :align: center
    :alt:   COVID-19, Mondo
    :name:  COVID-19, Mondo
@@ -62,17 +63,31 @@ dei totali giornalieri per questi dieci paesi, a partire dal 14 gennaio 2020.
 | 
   
 Invece, il seguente grafico mostra l'andamento dei casi complessivi,
-partendo dal 20 Febbraio 2020, eliminando i dati del paese più colpito. In tal modo
-è possibile osservare meglio l'andamento in quest'ultimo periodo per i paesi dal secondo al decimo
+partendo dal 20 Febbraio 2020, eliminando i dati dei due paesi più colpiti. In tal modo
+è possibile osservare meglio l'andamento in quest'ultimo periodo per i paesi dal terzo al decimo
 posto tra quelli più colpiti dal virus.
 
-.. image:: /media/images/210/covid19-worldwide-${UPDATED}.en.png
+.. image:: /media/images/210/covid19-worldwide-${UPDATED}_3-10.png
    :height: 700 px
    :width:  900 px
-   :scale: 75 %
+   :scale: 85 %
    :align: center
-   :alt:   COVID-19, Mondo, senza la nazione più colpita
-   :name:  COVID-19, Mondo, senza la nazione più colpita
+   :alt:   COVID-19, Mondo, senza le due nazioni più colpite
+   :name:  COVID-19, Mondo, senza le due nazioni più colpite
+
+| 
+| 
+  
+Infine, qui di seguito, la situazione per i 10 paesi membri dell'Unione Europea più colpiti.
+Anche in questo caso partendo dal 20 Febbraio 2020.
+
+.. image:: /media/images/210/covid19-worldwide-${UPDATED}_eu_1-10.png
+   :height: 700 px
+   :width:  900 px
+   :scale: 85 %
+   :align: center
+   :alt:   COVID-19, Unione Europea
+   :name:  COVID-19, Unione Europea
 
 I dati da cui sono derivati i grafici sono consultabili 
 a `questo indirizzo </media/data/210/covid19-worldwide-${UPDATED}.csv>`_.
@@ -82,11 +97,22 @@ Sintesi della situazione al $UPDATED
 
 Qui di seguito una sintesi della situazione per i venti paesi più colpiti
 alla data di aggiornamento di questo documento. Sono riportati i casi totali, 
-i decessi, e il rapporto tra decessi e casi totali
+i decessi, e il rapporto tra decessi e casi totali.
 
-.. csv-table:: situazione dei venti paesi più colpiti al $UPDATED
+Nella prima tabella i paesi dell'Unione Europea sono aggregati.
+
+.. csv-table:: situazione dei venti paesi più colpiti al $UPDATED, EU aggregata
 
 $DATA_TABLE
+
+|
+|
+
+Invece in questa tabella i paesi dell'Unione Europea sono disaggregati.
+
+.. csv-table:: situazione dei venti paesi più colpiti al $UPDATED, EU disaggregata
+
+$DATA_TABLE_EU
 
 
 Osservazioni

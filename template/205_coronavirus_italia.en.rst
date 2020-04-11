@@ -40,7 +40,7 @@ In the graph I show:
 .. image:: /media/images/204/dpc-covid19-ita-andamento-nazionale.en.png
    :height: 700 px
    :width:  900 px
-   :scale: 75 %
+   :scale: 85 %
    :align: center
    :alt:   COVID-19, Italy
    :name:  COVID-19, Italy
@@ -60,7 +60,7 @@ the six most hitted regions.
 .. image:: /media/images/204/dpc-covid19-ita-regioni.most_hitted.en.png
    :height: 700 px
    :width:  900 px
-   :scale: 75 %
+   :scale: 85 %
    :align: center
    :alt:   COVID-19, Italia, regions, temporal trend
    :name:  COVID-19, Italia, regions, temporal trend
@@ -74,7 +74,7 @@ the following historam shows the total cases for every region.
 .. image:: /media/images/204/dpc-covid19-ita-regioni.en.png
    :height: 700 px
    :width:  900 px
-   :scale: 75 %
+   :scale: 85 %
    :align: center
    :alt:   COVID-19, Italy, regions
    :name:  COVID-19, Italy, regions
@@ -96,7 +96,7 @@ overall country.
 .. image:: /media/images/204/dpc-covid19-ita-andamento-nazionale.nuovi_positivi.en.png
    :height: 700 px
    :width:  900 px
-   :scale: 75 %
+   :scale: 85 %
    :align: center
    :alt:   COVID-19, Italia, regioni, andamento temporale nuovi casi giornalieri
    :name:  COVID-19, Italia, regioni, andamento temporale nuovi casi giornalieri

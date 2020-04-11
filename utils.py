@@ -5,9 +5,11 @@ import configparser
 import csv
 import sys
 
+from datetime import datetime
 from pathlib import Path
 
 import paramiko
+import pandas as pd
 
 
 FILE_CONFIG = './utils.conf'
@@ -20,6 +22,30 @@ DIR_IMG      = './images'    # images directory for infection in Italy
 DIR_DATA     = './data'      # data directory
 DIR_WIMG     = './world'     # images directory for worldwide infection
 
+
+## global variable to log
+#try:
+#    LOG_DFEU  = config['log']['LOG_DFEU']
+#except:
+#    LOG_DFEU = None
+#try:
+#    LOG_DF2 = config['log']['LOG_DF2']
+#except:
+#    LOG_DF2 = None
+#
+#def log_df(df, dfname='LOG_DFEU', context=''):
+#    filename = None
+#    if dfname=='LOG_DFEU' and LOG_DFEU is not None:
+#        filename = LOG_DFEU.format(datetime.now())
+#    elif dfname=='LOG_DF2' and LOG_DF2 is not None:
+#        filename = LOG_DF2.format(datetime.now())
+#    if filename:
+#        print('logging {}'.format(filename))
+
+# enable debug mode
+ENABLE_DEBUG = config['debug']['ENABLE_DEBUG'] in ['true', 'True']
+
+# global variables to send data to production host
 HOST = config['production']['HOST']
 USER = config['production']['USER']
 PKEY = config['production']['PKEY']
@@ -31,9 +57,10 @@ D_FMT2  = '%d/%m/%Y'              # format date as dd/mm/yyyy
 DT_FMT  = '%Y-%m-%dT%H:%M:%S'     # format datetime as yyyy-mm-ddThh:mm:ss
 DT_FMT2 = '%Y-%m-%d %H:%M:%S'     # format datetime as yyyy-mm-dd hh:mm:ss
 
-# paths to ldfa filesystem
+# global variables to send data to ldfa filesystem
 ENABLE_LDFA = config['ldfa']['ENABLE_LDFA'] in ['true', 'True']
 DIR_ROOT_LDFA = Path(config['ldfa']['DIR_ROOT_LDFA'])
+
 DIR_LDFA = {
     'articles':     DIR_ROOT_LDFA / 'articles', 
     'data_italy':   DIR_ROOT_LDFA / 'media/data/204', 
@@ -150,6 +177,7 @@ COLUMNS_RITALY = {
 #     5   deaths     5841 non-null   int64
 #     6   countries  5841 non-null   object
 #     7   geoid      5835 non-null   object
+# + ldfa @ 2020-04-09 get in the country population
 
 COLUMNS_WORLD = {
     'it': {
@@ -161,6 +189,7 @@ COLUMNS_WORLD = {
         'deaths': 'decessi',
         'countriesAndTerritories': 'paesi',
         'geoId': 'geoid',
+        'popData2018': 'popolazione',
     },
     'en': {
         'dateRep': 'date',
@@ -171,6 +200,7 @@ COLUMNS_WORLD = {
         'deaths': 'death',
         'countriesAndTerritories': 'country',
         'geoId': 'geoid',
+        'popData2018': 'population',
     }
 }
 # END   columns of pandas dataframe from csv and excel files
@@ -218,55 +248,6 @@ def shape_data(df, cols, keyerr=True):
     df.rename(columns=cols, inplace=True)
     return df
     
-
-#def get_date(v):
-#    '''get date list from list of dicts
-#    
-#       param: v        list of dicts - [{fld1: val11, fld2:val12, ...},
-#                                       {fld1: val21, fld2:val22, ...},
-#                                       ... ]
-#       return: a list of date
-#       
-#       Note:
-#         - key 'data' identifies the date to extract (it's in italian language)
-#         - being a list, the returned value has the usual index operations;
-#           e.g. to get the last 4 days: get_date(v)[-4:]
-#    '''
-#    l = list( set( [row['data'] for row in v] ) )
-#    return sorted(l)
-
-
-#def load_data(afile):
-#    '''load a csv file as list of dicts
-#    
-#       param: afile     str or FILE - whatever is good to 'open'
-#       
-#       return a list of dicts: [{fld1: val11, fld2: val12, ...},
-#                                {fld1: val21, fld2: val22, ...},
-#                                ... ]
-#    '''
-#    with open(afile, 'r') as f:
-#        v = list(csv.DictReader(f, delimiter=','))
-#    return v
-
-
-#def save_data(v, afile):
-#    '''save a list of dicts as csv file
-#    
-#       param:
-#         - v         list of dicts
-#         - afile     str or FILE - whatever is good to 'open'
-#       
-#       return 0 or raise exception
-#    '''
-#    with open(afile, 'w', newline='') as f:
-#        fieldnames = list(v[0].keys())
-#        w = csv.DictWriter(f, delimiter=',', fieldnames=fieldnames)
-#        first = {fname: fname for fname in fieldnames}
-#        w.writerow(first)
-#        for row in v:
-#            w.writerow(row)
-#    return 0
 
 def to_production(source_data_dir, dest_data_dir, source_image_dir, dest_image_dir, data_files, image_files):
     '''

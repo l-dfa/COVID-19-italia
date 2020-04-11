@@ -39,7 +39,7 @@ Nel grafico indico:
 .. image:: /media/images/204/dpc-covid19-ita-andamento-nazionale.png
    :height: 700 px
    :width:  900 px
-   :scale: 75 %
+   :scale: 85 %
    :align: center
    :alt:   COVID-19, Italia
    :name:  COVID-19, Italia
@@ -59,7 +59,7 @@ per le sei regioni più colpite.
 .. image:: /media/images/204/dpc-covid19-ita-regioni.most_hitted.png
    :height: 700 px
    :width:  900 px
-   :scale: 75 %
+   :scale: 85 %
    :align: center
    :alt:   COVID-19, Italia, regioni, andamento temporale
    :name:  COVID-19, Italia, regioni, andamento temporale
@@ -73,7 +73,7 @@ il seguente istogramma mostra i casi totali per regione.
 .. image:: /media/images/204/dpc-covid19-ita-regioni.png
    :height: 700 px
    :width:  900 px
-   :scale: 75 %
+   :scale: 85 %
    :align: center
    :alt:   COVID-19, Italia, regioni
    :name:  COVID-19, Italia, regioni
@@ -96,7 +96,7 @@ a livello nazionale
 .. image:: /media/images/204/dpc-covid19-ita-andamento-nazionale.nuovi_positivi.png
    :height: 700 px
    :width:  900 px
-   :scale: 75 %
+   :scale: 85 %
    :align: center
    :alt:   COVID-19, Italia, regioni, andamento temporale nuovi casi giornalieri
    :name:  COVID-19, Italia, regioni, andamento temporale nuovi casi giornalieri
