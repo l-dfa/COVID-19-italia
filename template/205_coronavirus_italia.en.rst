@@ -30,12 +30,20 @@ related to the COVID-19 epidemic that has hit Italy since February 2020.
 Graphical analysis
 -------------------
 
-Below is the graph of the historical series of *cumulative* data relating to the epidemic.
-In the graph I show:
+Below is a graph composed of two zones. The upper zone draws the time series of 
+*cumulative* data relating to the epidemic.
+Here I show, day by day:
 
 * the numbers of infected cases (positive);
 * those, unfortunately, deceased;
-* and finally the healed.
+* the healed;
+* and, finally, the total numeber of cases: infected+healed+deceased.
+
+The lower area graphically shows, day by day, the trend of the
+variation of positive cases. The abscissas of the zones are aligned. Thereby
+it is immediate to compare the trend of the slope of the line of positive cases
+present in the upper area, with the difference of the cases, reported in the 
+inferior area.
 
 .. image:: /media/images/204/dpc-covid19-ita-andamento-nazionale.en.png
    :height: 700 px
@@ -46,6 +54,23 @@ In the graph I show:
    :name:  COVID-19, Italy
 
 |
+
+Hereafter the numbers for the last day detected. The columns indicate [#]_:
+
+  date,overall hospit.,quarantine at home,positives,change of positives,new positives,healed,deceased,overall cases
+  
+* *date*, the date of the day;
+* *overall hospit.*, the number of positive cases hospitalized;
+* *quarantine at home*, the number of positive cases in home isolation,
+  with mild or no symptoms;
+* *positives*, the sum of the positive cases: hospitalized+quarantine;
+* *change of positives*, the variation of the sum of the positive cases
+  between the current and the previous date; this is not a cumulative data;
+* *new positives*, the new positive cases at the current date; this is not
+  a cumulative datum;
+* *healed*, the number of patients healed;
+* *deceased*, the number of deceased patients;
+* *overall cases*, the total number of cases: positive+healed+deceased.
 
 .. csv-table:: national status - last day
 
@@ -69,7 +94,7 @@ the six most hitted regions.
 | 
 
 To have a general idea about the geographical distribution of the virus,
-the following historam shows the total cases for every region.
+the following histogram shows the total cases for every region.
 
 .. image:: /media/images/204/dpc-covid19-ita-regioni.en.png
    :height: 700 px
@@ -118,15 +143,59 @@ from this graph, taken from `this wikipedia article <https://en.wikipedia.org/wi
 Having exceeded the peak means having overtaken the maximum of the graph, and
 proceed towards ever lower diffusion rates.
 
-Unfortunately, the actual course of an infection is quite different from that
-of a theoretical curve, and it is influenced by many factors. First among all
-the possibility of contrasting the diffusion. In the previous graph we see the theoretical effect
+In the previous graph we see the theoretical effect
 of containment, which allows to postpone the peak and to lower it:
 the aim is not to decrease the number of affected people [#]_, but to dilute the time
 expansion to prevent healthcare facilities from going into crisis.
 
+Unfortunately, the actual course of an infection is quite different from that
+of a theoretical curve, and it is influenced by many factors. First among all
+the possibility of contrasting the diffusion. And that's what we're looking at
+in our real trend of *new daily cases*. It is quite difficult to see a similarity
+with the curve above.
+Above all, the trend of cases after the peak does not seem to decrease
+as indicated by the theoretical model. Rather, there is the sensation of assisting
+at a very slow decrease with a linear trend.
+
 Some remarks
 ---------------------
+
+*[April 12, 2020]*. Government continues to tell us that things are constantly
+improving. The fact is that they tend to present *best* data from time to time. 
+Once upon a time it is the low number of death. The day after a lesser gain
+of positives. And the next day, the decrease
+of the hospitalized. This way of doing has the purpose of avoiding the spread of discouragement.
+But in this way people lower their guard and they do not respect the
+containment rules.
+
+We can see the result in our charts. Meanwhile we reached the peak of new daily infections
+(over 6500) on March 21, twenty days later we still have almost
+4700 new cases of infection every day. The descent rate is very slow.
+
+Let's face China. In that case one month after the start of the lockdown,
+the curve of the total cases had definitely changed its shape, decreasing the
+slope to clearly start the expected flattening. Flattening indicating
+zero new infections.
+
+In Italy, one month after the introduction of the lockdown, which took place on March 9,
+the curve of total cases still points decidedly upwards. Obvious sign that
+the measures in place are unable to block the spread of the virus
+in a few weeks.
+
+This observation also applies to the United Europe as a whole. With the difference
+that Italy began the lockdown much earlier than the other EU countries.
+Indeed, one month after the outbreak of the infection
+in Europe, some of these countries do not have yet imposed the lockdown. So in theory now
+we should be much better. Theory that I do not see come true in practice.
+
+I think the keystone is to isolate asymptomatic positives.
+In Italy we are not implementing a strong positive quarantine policy. While in
+China these were removed from their families. Here this does not happen.
+Consequently, a new positive in Italy almost certainly equates to contagion
+of an entire family.
+
+*[April 12, 2020 - end]*
+
 
 *[March 30, 2020]*: **maybe** finally we can hope. Looking at the chart below,
 we note that the variation of the positives (the bottom rectangle) is decreasing
@@ -266,6 +335,8 @@ Moreover, since the same date, Civil Protection spreads data about outbreak by G
 * provincial trend: `andamento nelle province <https://github.com/pcm-dpc/COVID-19/tree/master/dati-province>`_.
 
 --------------
+
+.. [#] These indications also apply to the succeding tables.
 
 .. [#] The number of infected people is represented by the area between the curve of the graph and
    his abscissa.

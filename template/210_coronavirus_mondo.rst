@@ -96,8 +96,15 @@ Sintesi della situazione al $UPDATED
 ------------------------------------------------------------------------
 
 Qui di seguito una sintesi della situazione per i venti paesi più colpiti
-alla data di aggiornamento di questo documento. Sono riportati i casi totali, 
-i decessi, e il rapporto tra decessi e casi totali.
+alla data di aggiornamento di questo documento. Le colonne indicano:
+
+* *date*, la data del giorno;
+* *cases*, il totale dei casi alla data indicata: positivi+guariti+deceduti;
+* *death*, il totale dei deceduti alla data indicata;
+* *death/cases*, il rapporto tra decessi e totale dei casi;
+* *cases/population*, il rapporto tra numero totale di casi e la popolazione;
+* *death/population*, il rapporto tra numero di decessi e la popolazione;
+* *country*, il nome della nazione.
 
 Nella prima tabella i paesi dell'Unione Europea sono aggregati.
 
@@ -198,7 +205,7 @@ nelle regioni più attive industrialmente: Lombardia, Emilia Romagna e Veneto.
 Sono le regioni che hanno avuto più contatti con le industrie in Cina, dove 
 è avvenuta la prima diffusione.
 
-**Attenzione**, non sto dicendo che è colpa
+**Attenzione**, non sto dicendo che sia colpa
 della Cina, o che non si deve commerciare con essa. Sono convinto che una
 nuova epidemia si sarebbe potuta sviluppare in un qualunque altro paese 
 nel mondo. E se questo paese fosse stato attivo industrialmente 

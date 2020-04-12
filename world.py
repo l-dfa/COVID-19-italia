@@ -30,7 +30,7 @@ import utils             as u
 
 # START section: BEFORE to use these variables, INSERT DATE
 TITLE10 = 'Covid-19: temporal trend of number of total cases from {};\n10 countries with the highest total of cases'
-TITLE09 = 'Covid-19: temporal trend of number of total cases from {};\nfrom the 2nd to the 10th countries with the highest total of cases'
+TITLE09 = 'Covid-19: temporal trend of number of total cases from {};\nfrom the 3rd to the 10th countries with the highest total of cases'
 TITLEEU = 'Covid-19: temporal trend from {};\n10 European Union countries with the highest total of cases'
 # END   section: BEFORE to use these variables, INSERT DATE
 
@@ -174,13 +174,13 @@ def modify_by_area(df, tags=None, area=None):
       - SUBSTITUTE INPLACE of df area's countries with area_tag and population 
     '''
     
-    if area is None: area = EU
+    if area is None: area = EU         # rem: this is ("Austria", "Belgium", "Bulgaria", ... )
     if tags is None: tags = {'country': 'European Union',
                              'geoid': 'EU',
                              'countryterritoryCode': 'EU'
                             }
     
-    country = tags['country']   # only to spare some keystokes
+    country = tags['country']          # only to spare some keystokes
     
     # calculating area population
     df_eu = df[df['country'].isin(area)]
@@ -264,16 +264,16 @@ def world_get_sum_on_last_day(df, countries=None):
     if countries is None:
         countries = df['country'].drop_duplicates()   # get a copy
         
-    l = []           # will be: [[date, sum, country], [date, sum, country], ...]
+    l = []           # will be: [[date, ... sum, country ...], [date, ... sum, country ...], ...]
 
     for country in countries:
         country_df = df.loc[df['country']==country].copy()
-        the_cases = country_df['cases'].sum()
+        the_cases  = country_df['cases'].sum()
         the_deaths = country_df['death'].sum()
-        the_date = country_df['date'].max()
-        the_day = country_df['day'].max()
-        the_month = country_df['month'].max()
-        the_year = country_df['year'].max()
+        the_date  = country_df['date'].max()
+        the_day   = the_date.day
+        the_month = the_date.month
+        the_year  = the_date.year
         geoid = country_df['geoid'].max()
         population = country_df['population'].max()
         if the_cases == 0:
@@ -311,6 +311,7 @@ def world_get_sum_on_last_day(df, countries=None):
                                    'death/cases', 
                                    'country', 
                                    'geoid',
+                                   'population',
                                    'cases/population',
                                    'death/population',
                                    ])

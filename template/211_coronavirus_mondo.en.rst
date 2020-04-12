@@ -97,10 +97,17 @@ Summary of situation on $UPDATED
 ------------------------------------------------------------------------
 
 Hereafter a summary of the situation about the twenty most hitted countries
-at the uate date of this article. Total positive cases, deaths and ratio
-between deaths and total positive cases are reported.
+at the uate date of this article. Columns report:
 
-In the first table European Union Countries are bundled.
+* *date*, the date of the day;
+* *cases*, the total number of cases on the indicated date: positive + healed + deceased;
+* *death*, the total of the deceased on the indicated date;
+* *death/cases*, the ratio between deaths and total cases;
+* *cases/population*, the ratio between the total number of cases and the population;
+* *death/population*, the ratio between the number of deaths and the population;
+* *country*, the name of the country.
+
+In the first table, European Union Countries are bundled.
 
 .. csv-table:: situation of twenty most hitted countries on $UPDATED, EU Countries bundled
 
@@ -188,7 +195,7 @@ And some considerations
 ---------------------------
 
 This pandemic has made it clear more than ever that "*the whole world
-it is a village*". This old proverb wanted to highlight as certain
+is a village*". This old proverb wants to highlight as certain
 behaviors are observable in all people. But now it
 can mean literally: travel for pleasure or work weave
 a spider web that envelops all humanity in the world.

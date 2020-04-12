@@ -29,12 +29,20 @@ relativi all'epidemia di COVID-19 che ha colpito l'Italia dal febbraio 2020.
 Analisi grafica
 -----------------
 
-Qui di seguito graficamente la serie storica dei dati *cumulativi* relativi all'epidemia.
-Nel grafico indico:
+Qui di seguito riporto un grafico composto da due zone. La zona superiore 
+grafica le serie storiche dei dati *cumulativi* relativi all'epidemia.
+Qui indico, giorno per giorno:
 
 * i numeri dei casi contagiati (positivi);
 * quelli, purtroppo, deceduti;
-* ed infine i guariti.
+* i guariti;
+* e ed infine il numero di casi totali, ovvero: contagiati+guariti+deceduti.
+
+La zona inferiore riporta graficamente, giorno per giorno, l'andamento della 
+variazione dei casi positivi. Le ascisse delle zone sono allineate. In tal modo 
+è immediato confrontare l'andamento della pendenza della linea dei casi positivi
+presente nella zona superiore, con la differenza dei casi, riportata nella zona
+inferiore.
 
 .. image:: /media/images/204/dpc-covid19-ita-andamento-nazionale.png
    :height: 700 px
@@ -45,6 +53,21 @@ Nel grafico indico:
    :name:  COVID-19, Italia
 
 |
+
+Qui si seguito i numeri relativi all'ultimo giorno rilevato. Le colonne indicano [#]_:
+
+* *data*, la data del giorno;
+* *ospedalizzati*, il numero di casi positivi ricoverati in ospedale;
+* *isolamento domiciliare*, il numero dei casi positivi in isolamento domiciliare,
+  con sintomi lievi o nulli;
+* *positivi*, la somma dei casi positivi: ospedalizzati+domiciliari;
+* *variazione positivi*, la variazione tra la data corrente e la precedente 
+  della somma dei casi positivi; questo non è un dato cumulativo;
+* *nuovi positivi*, i nuovi casi positivi alla data corrente; questo non 
+  è un dato cumulativo;
+* *guariti*, il numero di pazienti guariti;
+* *deceduti*, il numero di pazienti deceduti;
+* *totale casi*, il totale dei casi: positivi+guariti+deceduti.
 
 .. csv-table:: situazione nazionale - ultimo giorno
 
@@ -68,7 +91,7 @@ per le sei regioni più colpite.
 | 
 
 Se si desidera avere un'idea generale della diffusione del virus nelle diverse regioni,
-il seguente istogramma mostra i casi totali per regione.
+il seguente istogramma mostra i *casi totali* per regione.
 
 .. image:: /media/images/204/dpc-covid19-ita-regioni.png
    :height: 700 px
@@ -118,19 +141,61 @@ da questo grafico, ripreso da `questo articolo di wikipedia <https://en.wikipedi
 Avere superato il picco, significa avere scavalcato il massimo del grafico, e
 procedere verso velocità di diffusione sempre inferiori.
 
-Purtroppo l'andamento reale di una infezione è piuttosto diverso da quello 
-di una curva teorica, ed è influenzato da molti fattori. Primo fra tutti
-la possibilità di contrastare la diffusione. Nel grafico precedente si vede l'effetto
+Nel grafico precedente si vede l'effetto
 teorico del contenimento, che permette di posporre il picco e di abbassarlo:
 lo scopo non è diminuire il numero di persone colpite [#]_, ma diluire i tempi
 di espansione per evitare che le strutture sanitarie vadano in crisi.
 
+Purtroppo l'andamento reale di una infezione è piuttosto diverso da quello 
+di una curva teorica, ed è influenzato da molti fattori. Primo fra tutti
+la possibilità di contrastare la diffusione. Ed è quello che stiamo osservando
+nel nostro andamento reale dei *nuovi casi giornalieri*. Per vedere una somiglianza 
+con la curva qui sopra si deve fare un bello sforzo di immaginazione.
+Sopratutto, l'andamento dei casi dopo il picco non sembra diminuire 
+come indicato dal modello teorico. Piuttosto, si ha la senzazione di assistere
+a una lentissima diminuizione con andamento lineare.
+
+Credo che la chiave di volta consista nell'isolamento dei positivi asintomatici.
+In Italia non stiamo attuando una decisa politica di quarantena dei positivi. Mentre in
+Cina questi venivano allontanati dai loro nuclei familiari. Da noi questo non accade.
+Di conseguenza in Italia un nuovo positivo equivale quasi sicuramente al contagio
+di una intera famiglia.
 
 
 Osservazioni
 ---------------------
 
 Le osservazioni più recenti precedono quelle temporalmente più datate.
+
+*[12 Aprile 2020]*. Il Governo continua a dirci che le cose stanno costantemente
+migliorando. Il fatto è che tendono a presentare di volta in volta i dati 
+*migliori*. Una volta è il basso numero di decessi. Il giorno dopo l'aumento
+contenuto dei positivi. E il giorno ancora successivo, la diminuizione 
+dei ricoverati. Questo modo di fare ha lo scopo di evitare il diffondersi dello scoramento.
+Ma in questo modo le persone abbassano la guardia e non rispettano le
+norme di contenimento. 
+
+Il risultato lo osserviamo nei nostri grafici. Raggiunto il picco dei nuovi contagi
+giornalieri (oltre 6500) il 21 Marzo, venti giorni dopo abbiamo ancora quasi
+4700 nuovi casi di contagio ogni giorno. La discesa è lentissima.
+
+Confrontiamoci con la Cina. In quel caso dopo un mese dall'inizio del lockdown,
+la curva dei casi totali aveva decisamente cambiato fisionomia, diminuendo la
+pendenza per avviarsi chiaramente all'appiattimento atteso. Appiattimento che indica
+zero nuovi contagi.
+
+In Italia, dopo un mese dall'introduzione del lockdown, avvenuto il 9 Marzo,
+la curva dei casi totali punta ancora decisa verso l'alto. Segno evidente che 
+le misure in atto non sono in grado di bloccare la diffusione del virus
+in poche settimane.
+
+Questa osservazione vale anche per l'Europa Unita nel suo complesso. Con la differenza
+che l'Italia ha cominciato il lockdown molto prima degli altri paesi dell'EU.
+Anzi, alcuni di questi paesi, ad un mese di distanza dall'esplosione dell'infezione
+in Europa, il lockdown ancora non l'hanno imposto. Perciò in teoria ormai
+dovremmo andare molto meglio. Teoria che non vedo avverarsi nella pratica.
+
+*[12 Aprile 2020 - fine]*
 
 *[30 Marzo 2020]*: **forse** finalmente si può sperare. Osservando il grafico 
 dell'andamento nazionale, 
@@ -277,6 +342,8 @@ Inoltre, dalla stessa data, la Protezione Civile diffonde i dati dell'epidemia t
 * `andamento nelle province <https://github.com/pcm-dpc/COVID-19/tree/master/dati-province>`_.
 
 ---------------
+
+.. [#] Queste indicazioni valgono anche per le tabelle successive.
 
 .. [#] Il numero di persone infette è rappresentetato dall'area tra la curva del grafico e 
    la sua ascissa. 
