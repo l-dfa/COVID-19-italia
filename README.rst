@@ -18,15 +18,13 @@ Installation
 To install [#]_:
 
 * make an hosting directory, example: ``mkdir .\covid19-italia``
-* make some auxiliary directories:
+* make some auxiliary directories::
 
-  ```
   cd .\covid19-italia
   mkdir data
   mkdir images
   mkdir world
   mkdir backup
-  ```
 
 * clone or download this project to the hosting directory
 * create a python virtualenv environment: ``python - m venv venv``
@@ -34,12 +32,10 @@ To install [#]_:
 * rename utils_example.conf: ``ren utils_example.conf utils.conf`` 
 * modify utils.conf contents as you wish;
 * study the project listings;
-* try it:
+* try it::
 
-  ```
   python world.py
   python italy.py
-  ```
 
 License
 ------------
@@ -55,6 +51,6 @@ license.
 
 .. _Python: http://www.python.org/
 .. _Pandas: https://pandas.pydata.org/
-.. _reStructuredText: https://en.wikipedia.org/wiki/ReStructuredText
+.. _Matplotlib: https://matplotlib.org/
 
 .. [#] These are for MS Windows. In Linux, please use the equivalent commands.
