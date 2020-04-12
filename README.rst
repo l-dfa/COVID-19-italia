@@ -18,11 +18,9 @@ Installation
 To install [#]_:
 
 * make an hosting directory, example: ``mkdir .\covid19-italia``
-* make some auxiliary directories:
+* make some auxiliary directories::
 
-  .. code::
-  
-  cd .\covid19-italia
+  cd .\\covid19-italia
   mkdir data
   mkdir images
   mkdir world
@@ -34,10 +32,8 @@ To install [#]_:
 * rename utils_example.conf: ``ren utils_example.conf utils.conf`` 
 * modify utils.conf contents as you wish;
 * study the project listings;
-* try it:
+* try it::
 
-  .. code::
-  
   python world.py
   python italy.py
 
