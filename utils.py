@@ -23,25 +23,6 @@ DIR_DATA     = './data'      # data directory
 DIR_WIMG     = './world'     # images directory for worldwide infection
 
 
-## global variable to log
-#try:
-#    LOG_DFEU  = config['log']['LOG_DFEU']
-#except:
-#    LOG_DFEU = None
-#try:
-#    LOG_DF2 = config['log']['LOG_DF2']
-#except:
-#    LOG_DF2 = None
-#
-#def log_df(df, dfname='LOG_DFEU', context=''):
-#    filename = None
-#    if dfname=='LOG_DFEU' and LOG_DFEU is not None:
-#        filename = LOG_DFEU.format(datetime.now())
-#    elif dfname=='LOG_DF2' and LOG_DF2 is not None:
-#        filename = LOG_DF2.format(datetime.now())
-#    if filename:
-#        print('logging {}'.format(filename))
-
 # enable debug mode
 ENABLE_DEBUG = config['debug']['ENABLE_DEBUG'] in ['true', 'True']
 
@@ -213,7 +194,7 @@ def load_df(fname, opener, cols=None, encoding='utf-8'):
     params:
       - fname       str or Path - file to read
       - opener      pandas method - usually pd.excel() or pd.read_csv()
-      - cols        dict - a collection f columns names and their translation in a certain language
+      - cols        dict - a collection of columns names and their translation in a certain language
                            i.e. {col1: col1_lang, col2: col2_lang, ...}
       - encoding    str - encoder to use reading dataframe
     
@@ -279,3 +260,10 @@ def to_production(source_data_dir, dest_data_dir, source_image_dir, dest_image_d
             sftp_client.put(Path(source_image_dir) / afile, dest_image_dir +'/'+ afile)  #local, remote
         
     return
+
+def to_rst_table(df_str):
+    lines = df_str.split('\n')
+    lines = ['  '+line for line in lines]
+    df_str = '\n'.join(lines)
+    df_str = df_str.replace('_', ' ')
+    return df_str

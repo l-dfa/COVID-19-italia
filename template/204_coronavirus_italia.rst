@@ -234,7 +234,7 @@ che ci hanno insegnato alle elementari? Si tratta proprio di questo.
 Per capire l'andamento dell'infezione, è necessario analizzare la dimensione del 
 gruppo formato dalle persone infette, e solo queste. I guariti e i deceduti 
 non sono più infetti. Entrambi questi casi sono *sconfitte* per il virus, che non
-è più in grado i propagarsi utilizzandoli come vettori.
+è più in grado di propagarsi utilizzandoli come vettori.
 
 La dimensione del gruppo di persone infette è la linea rossa
 nel riquadro superiore dell'andamento nazionale. Osservare la variazione della

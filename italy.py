@@ -115,12 +115,49 @@ def get_data(adate):
     return 0
 
 def shape_national_data(df, lang='it', drop=[]):
+    '''
+    - data,
+    - stato,
+    - ricoverati_con_sintomi,
+    - terapia_intensiva,
+    - totale_ospedalizzati,
+    - isolamento_domiciliare,
+    - totale_positivi,
+    - variazione_totale_positivi,
+    - nuovi_positivi,
+    - dimessi_guariti,
+    - deceduti,
+    - totale_casi,
+    - tamponi,
+    - note_it,
+    - note_en
+    '''
     columns = dict(u.COLUMNS_ITALY[lang])
     df2 = df.copy(deep=True)
     for col in drop:
         if col in df.columns:
             df2 = df2.drop(col, 1)
             columns.pop(col, None)     #del key of value col if exists; ignore if it is not existent
+    
+    if 'dimessi_guariti' in df2.columns:
+        df2['variazione_guariti'] = df2['dimessi_guariti'] - df2['dimessi_guariti'].shift(1) 
+        df2['variazione_guariti'] = df2['variazione_guariti'].astype('Int64')
+    if 'deceduti' in df2.columns:
+        df2['variazione_deceduti'] = df2['deceduti'] - df2['deceduti'].shift(1) 
+        df2['variazione_deceduti'] = df2['variazione_deceduti'].astype('Int64')
+    
+    cols = df2.columns.tolist()[:-4]
+    cols.append('variazione_guariti')
+    cols.extend(df2.columns.tolist()[-4:-3])
+    cols.append('variazione_deceduti')
+    cols.extend(df2.columns.tolist()[-3:-2])
+    
+    df2 = df2.reindex(cols, axis=1)
+    if lang == 'en':
+        columns['variazione_guariti'] = 'change_of_healed'
+        columns['variazione_deceduti'] = 'change_of_deaths'
+        columns['nuovi_positivi'] = 'new_positives'
+                         
     df2 = df2.rename(columns=columns)
     return df2
 
@@ -137,22 +174,22 @@ def shape_regional_data(df, lang='it', drop=[]):
     list_of_regions = h.get_regions_name(df, h.get_regions(df))
     
     # calculating change of healed
-    aseries = pd.Series(dtype='int64')
+    aseries = pd.Series(dtype=pd.Int64Dtype())
     for region in list_of_regions:
         rdf = df2[df2['denominazione_regione']==region].iloc[-NUM_RDAYS:]
         s = rdf['dimessi_guariti'] - rdf['dimessi_guariti'].shift(1) 
         aseries = pd.concat([aseries, s])
-    #import pdb; pdb.set_trace()
-    df2['variazione_guariti'] = aseries
+    #import pdb; pdb.set_trace()    
+    df2['variazione_guariti'] = aseries.astype('Int64')
     
     # calculating change of deceased
-    aseries = pd.Series(dtype='int64')
+    aseries = pd.Series(dtype=pd.Int64Dtype())
     for region in list_of_regions:
         rdf = df2[df2['denominazione_regione']==region].iloc[-NUM_RDAYS:]
         s = rdf['deceduti'] - rdf['deceduti'].shift(1) 
         aseries = pd.concat([aseries, s])
     #import pdb; pdb.set_trace()
-    df2['variazione_deceduti'] = aseries
+    df2['variazione_deceduti'] = aseries.astype('Int64')
     #- ldfa,2020-03-31 now data from Protezione Civile has this columns
     #df2['nuovi_positivi'] = df2['nuovi_attualmente_positivi'] + df2['variazione_guariti'] + df2['variazione_deceduti']
     df2['nuovi_positivi'] = df['nuovi_positivi']
@@ -164,12 +201,6 @@ def shape_regional_data(df, lang='it', drop=[]):
     df2 = df2.rename(columns=columns)
     return df2
 
-def to_rst_table(df_str):
-    lines = df_str.split('\n')
-    lines = ['  '+line for line in lines]
-    df_str = '\n'.join(lines)
-    df_str = df_str.replace('_', ' ')
-    return df_str
 
 def make_article(template, national_data, regional_data, lang='it', title=''):
     '''
@@ -202,11 +233,11 @@ def make_article(template, national_data, regional_data, lang='it', title=''):
     # national data, last day
     df2_last = df2.iloc[[-1], :]
     rst_it_last = df2_last.to_csv(index=False)
-    rst_it_last = to_rst_table(rst_it_last)
+    rst_it_last = u.to_rst_table(rst_it_last)
 
     # national data, all days
     rst_it = df2.to_csv(index=False)
-    rst_it = to_rst_table(rst_it)
+    rst_it = u.to_rst_table(rst_it)
 
     # regional data, last seven days every region
     rdf2 = shape_regional_data(regional_data,
@@ -233,7 +264,9 @@ def make_article(template, national_data, regional_data, lang='it', title=''):
             'variazione_positivi',
             'nuovi_positivi',
             'guariti',
+            'variazione_guariti',
             'deceduti',
+            'variazione_deceduti',
             'totale_casi',
         ]
     else:
@@ -246,16 +279,18 @@ def make_article(template, national_data, regional_data, lang='it', title=''):
         'change of positives',
         'new_positives',
         'healed',
+        'change_of_healed',
         'deceased',
+        'change_of_deaths',
         'overall cases',
         ]
     
     rst_region_last = rdf2_last.to_csv(index=False, columns=columns)
-    rst_region_last = to_rst_table(rst_region_last)
+    rst_region_last = u.to_rst_table(rst_region_last)
 
     # regional data
     rst_region = rdf2.to_csv(index=False, columns=columns)
-    rst_region = to_rst_table(rst_region)
+    rst_region = u.to_rst_table(rst_region)
     
     d = dict()
     d['MODIFIED']    = dt.strftime(u.DT_FMT2)

@@ -488,17 +488,11 @@ def make_article(template, adate, df, df_world):
     
     df2 = world_get_sum_on_last_day(df)[:20]
     data_table = df2.to_csv(columns=columns, index=False, float_format='%.5f')
-    lines = data_table.split('\n')
-    lines = ['  '+line for line in lines]
-    data_table = '\n'.join(lines)
-    data_table = data_table.replace('_', ' ')
+    data_table = u.to_rst_table(data_table)
     
     df2_world = world_get_sum_on_last_day(df_world)[:20]
     data_table_eu = df2_world.to_csv(columns=columns,index=False, float_format = '%.5f')
-    lines2 = data_table_eu.split('\n')
-    lines2 = ['  '+line for line in lines2]
-    data_table_eu = '\n'.join(lines2)
-    data_table_eu = data_table_eu.replace('_', ' ')
+    data_table_eu = u.to_rst_table(data_table_eu)
 
     # prepare variable contents
     d = dict()
