@@ -22,7 +22,7 @@ To install [#]_:
 
 ::
 
-  cd .\\covid19-italia
+  cd .\covid19-italia
   mkdir data
   mkdir images
   mkdir world
