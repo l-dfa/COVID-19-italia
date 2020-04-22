@@ -127,6 +127,26 @@ Osservazioni
 
 Le osservazioni più recenti precedono quelle temporalmente più datate.
 
+*[15 Aprile 2020]* Finalmente, in Europa si osserva che le curve dei casi totali
+della Spagna e dell'Italia cominciano ad appiattirsi. Ciò è indicativo del fatto
+che in queste due nazioni l'epidemia comincia a rallentare. Anche la Germania
+mostra lo stesso andamento, mentre sembrano esservi incertezze per l'efficacia
+delle misure di contenimento in Francia. Infatti in questo paese si era osservato
+un netto miglioramento qualche giorno fa; miglioramento ora vanificato da un deciso 
+aumento della pendenza della relativa curva.
+
+Complessivamente l'Unione Europea mostra un lieve rallentamento della diffusione
+del virus. Invece non vedo ancora chiari segni di rallentamento negli Stati Uniti.
+
+Più che mai trovo schizofrenica la politica di Trump.
+Da un lato accusa OMS di non avere avvertito con efficacia dell'estensione
+dell'epidemia in arrivo, e gli revoca i fondi americani. Dall'altro
+preme per riprendere le attività lavorative, quando l'epidemia è ancora 
+pienamente in corso. Che cosa ci avrebbe fatto con gli avvertimenti
+dell'OMS (che sono stati emessi a paccate), se comunque li ignora?
+
+*[15 Aprile 2020 - fine]*
+
 *[31 Marzo 2020]* Sbalorditiva la velocità con cui si è impennata
 la curva dei casi totali degli USA. Evidentemente la trascuratezza con cui
 gli USA (non) hanno affrontato il problema ha lasciato covare l'epidemia

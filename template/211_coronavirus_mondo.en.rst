@@ -97,7 +97,7 @@ Summary of situation on $UPDATED
 ------------------------------------------------------------------------
 
 Hereafter a summary of the situation about the twenty most hitted countries
-at the uate date of this article. Columns report:
+at the update date of this article. Columns report:
 
 * *date*, the date of the day;
 * *cases*, the total number of cases on the indicated date: positive + healed + deceased;
@@ -127,6 +127,26 @@ Remarks
 ---------------------
 
 The most recent remarks precede those temporally more dated.
+
+*[April 15, 2020]* In Europe we observe that the curves of the total cases 
+of Spain and Italy begin to flatten out. This is indicative of the fact
+that in these two nations the epidemic begins to slow down. Even Germany
+shows the same trend, while there seem to be uncertainties about efficacy
+of containment measures in France. In fact, we observed in this country
+a clear improvement a few days ago; improvement now frustrated by a decided
+increase in the slope of the relative curve.
+
+Overall, the European Union shows a slight slowdown in diffusion
+of the virus. Instead, I still don't see clear signs of slowing down in the United States.
+
+More than ever, I find Trump's policy schizophrenic.
+On the one hand, it accuses WHO of not having effectively warned of the extension
+of the outbreak, and withdraws American funds from it. On the other side
+presses to resume work, when the epidemic is still
+fully underway. What would he do with the warnings of
+WHO (which were issued a lot), if he still ignore them?
+
+*[April 15, 2020 - end]*
 
 *[March 31, 2020]* The speed with the US total case curve 
 has soared is astounding. It seems the neglect with which

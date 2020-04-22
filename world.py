@@ -392,10 +392,14 @@ def make_spagetti(df, adate, afile, title=None, ss=0, se=10):
     # plot and draw to file
     ax = sdf11.plot(title=title,
                     figsize=(9,7),
-                    color=colors
+                    color=colors,
+                    rot=80
                     )
     ax.grid(linestyle='--', axis='both')
     ax.set_ylabel('number of total cases')
+    fig = ax.get_figure()
+    fig.subplots_adjust(bottom=0.2)
+      
     plt.savefig(afile, format='png') # show to file
     plt.close()
     #plt.show()

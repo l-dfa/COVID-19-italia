@@ -57,7 +57,6 @@ inferior area.
 
 Hereafter the numbers for the last day detected. The columns indicate [#]_:
 
-  date,overall hospit.,quarantine at home,positives,change of positives,new positives,healed,deceased,overall cases
   
 * *date*, the date of the day;
 * *overall hospit.*, the number of positive cases hospitalized;

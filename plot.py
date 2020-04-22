@@ -89,14 +89,20 @@ def make_rplot(rdf, filename, **kwargs):
     params: 
       - rdf          pandas dataframe - see u.COLUMNS_RITALY
       - filename     str - filename of dataset, used to derive the plot filename
-      - min, max, xlabel, ylabel, title, lang
+      - **kwargs     dict - of arguments
+        - min          int - min index of countries to plot
+        - max          int - max index of countries to plot
+        - xlabel,      str - label of x axis
+        - ylabel,      str - label of y axis
+        - title,       str - title of picture
+        - lang         'it' | 'en'
     
     return None
     
     side effect: store a file containing the draw
     
     note: see https://pythonconquerstheuniverse.wordpress.com/2012/02/15/mutable-default-arguments/
-          about how manage mutable default arguments (list, dict, ...S)
+          about how manage mutable default arguments (list, dict, ...)
     '''
     
     params = {'min', 'max', 'xlabel', 'ylabel', 'title', 'lang'}
