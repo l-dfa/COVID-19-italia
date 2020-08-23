@@ -15,7 +15,6 @@ FILE_CONFIG = './utils.conf'
 config = configparser.ConfigParser()   # a config parser
 config.read(Path(FILE_CONFIG))
 
-breakpoint()
 ARTICLES = config['fu']['ARTICLES'].split(',')
 URLL     = config['fu']['URLL']
 URL      = config['fu']['URL']
@@ -38,7 +37,6 @@ def main():
         #print(rl.text)
         
         load_article_data = {'csrfmiddlewaretoken': csrf_token, }
-        breakpoint()
         for article in ARTICLES:
             files = {'article': open(ARTICLE_PATH + '/' + article, 'rb')}  # the field name is article, not file
             ru = s.post(URL, files=files, data=load_article_data)  
