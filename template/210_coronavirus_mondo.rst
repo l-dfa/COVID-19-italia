@@ -127,6 +127,46 @@ Osservazioni
 
 Le osservazioni più recenti precedono quelle temporalmente più datate.
 
+*[23 Giugno 2020]* Con sgomento e con dolore osservo gli andamenti di contagi negli 
+Stati Uniti e in Brasile. Nei fatti questi paesi stanno applicando politiche di 
+contenimento del contagio molto blande. E il risultato si osserva guardando 
+come sale la relativa curva dei casi totali.
+
+Ormai gli Stati Uniti hanno superato i due milioni e trecentomila casi totali, 
+con oltre 120000 decessi. Mentre il Brasile in poco più di due mesi ha 
+superato il milione di casi totali, con oltre 50000 decessi.
+
+Riguardo il dolorosissimo aspetto dei decessi. Mentre posso pensare,
+fino ad un certo punto, che negli
+US il servizio sanitario possa essere più avanzato di quello dell'Unione Europea
+(che con meno casi totali: un milione e duecentomila, ha avuto più decessi:
+oltre centotrentamila), faccio fatica ad accettare la stessa considerazione 
+per il sistema sanitario brasiliano. In questo caso temo che molti decessi
+avvengano al di fuori degli ospedali e/o che in ogni caso non vengano 
+diagnosticati come dovuti all'infezione di COVID-19.
+
+Dato l'attuale comportamento di questi paesi, che per diminuire gli impatti sull'economia
+non seguono politiche sanitarie di lockdown, temo che vedremo quale sarà
+l'efficacia del concetto di immunità di gregge. Spero solo che la medicina
+faccia rapidi progressi nel mettere a punto cure adeguate. Perché se
+l'immunità di gregge si raggiungerà con un 60% della popolazione infettata
+(questa era l'ipotesi ventilata in Gran Bretagna), considerando la popolazione
+di circa 330 milioni di persone in US, si raggiungeranno ben 198 milioni di 
+casi totali prima che l'immunità di gregge sia efficace. E se la mortalità 
+dovesse rimanere quella attuale (il 5.2% dei 
+casi totali), gli US sperimenterebbero la spaventosa cifra di circa 10 milioni di decessi.
+
+E in questo momento mi preoccupa anche la situazione dell'India, la cui curva
+dei casi totali ha assunto un andamento polinomiale con concavità verso l'alto.
+Segno che la politica di lockdown si sta dimostrando poco efficace. 
+Anche in questo caso la percentuale di decessi attribuita al COVID-19 è 
+molto inferiore a quella misurata in Unione Europea. E anche in questo caso non credo
+il servizio sanitario sia all'altezza di quello della UE.
+Inoltre qui stiamo parlando di un miliardo e trecento milioni di persone. L'impatto 
+globale come perdita di vite umane sarebbe tremendo.
+
+*[23 Giugno 2020 - fine]*
+
 *[15 Aprile 2020]* Finalmente, in Europa si osserva che le curve dei casi totali
 della Spagna e dell'Italia cominciano ad appiattirsi. Ciò è indicativo del fatto
 che in queste due nazioni l'epidemia comincia a rallentare. Anche la Germania

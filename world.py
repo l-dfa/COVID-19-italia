@@ -183,7 +183,7 @@ def modify_by_area(df, tags=None, area=None):
     country = tags['country']          # only to spare some keystokes
     
     # calculating area population
-    df_eu = df[df['country'].isin(area)]
+    df_eu = df[df['country'].isin(area)].copy()
     population = df_eu[['country', 'population']].drop_duplicates().sum()['population']
     
     # substituting single area countries with area name
@@ -237,7 +237,8 @@ def get_countries(df):
     # sorting countries by total cases
     countries.sort_values(['total_cases'], inplace=True, ascending=False)
     return list(countries['country'])
-    
+
+
 def world_get_sum_on_last_day(df, countries=None):
     '''
     create a new dataframe with total cases and some other data
@@ -269,7 +270,7 @@ def world_get_sum_on_last_day(df, countries=None):
     for country in countries:
         country_df = df.loc[df['country']==country].copy()
         the_cases  = country_df['cases'].sum()
-        the_deaths = country_df['death'].sum()
+        the_deaths = country_df['death'].sum().astype(int)
         the_date  = country_df['date'].max()
         the_day   = the_date.day
         the_month = the_date.month

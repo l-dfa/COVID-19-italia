@@ -23,6 +23,8 @@ Time trend of Coronavirus Covid-19 in Italy
 
 *Data updated at ${UPDATED}*.
 
+The most recent remark is on `July 6th, 2020`_.
+
 This article reports the temporal trend of the data of the Italian Ministry of Health
 released by the Civil Protection,
 related to the COVID-19 epidemic that has hit Italy since February 2020.
@@ -158,6 +160,35 @@ at a very slow decrease with a linear trend.
 
 Some remarks
 ---------------------
+
+The most recent observations precede the temporally older ones.
+
+[_`July 6th, 2020`]. After a long pause, I add a note at a delicate moment.
+
+From June the 3rd, in Italy we are experiencing the almost complete reopening of the activities.
+Also, up to two days ago, we observed a slow but steady one
+decrease in *positive* cases.
+
+But in the last two days the trend of *positive* cases has reversed. We deals with
+modest figures. The national figure yesterday was +21, and today it is +67.
+But it is a fact that the curve
+the positives started growing again. *It is not good news*.
+
+I believe that the current "*isolates the outbreak*" policy requires a lot of effort,
+and an extensive asymptomatic screening campaign. Campaign that in Italy 
+we have never been implemented. If this is also associated with the lack of controls
+by the police about spacing and hygiene rules (mask and clean hands),
+the result cannot be positive.
+
+An observation regarding the region Lazio. Today it arrived to count 870 *positive* cases,
+of which 212 hospitalized. While the number of hospitalized is
+comparable with Lombardy, the number of positives is approaching a thousand.
+And this is aligning Lazio with regions such as Piedmont (1208 positive) and Emilia-Romagna (1064 positive).
+If I were Zingaretti (the current Governor of the region, secretary of the Democratic Party)
+I would worry and look for ways to pay more attention
+to the problems of the region he should govern.
+
+*[July 6th, 2020 - end]*
 
 *[April 12, 2020]*. Government continues to tell us that things are constantly
 improving. The fact is that they tend to present *best* data from time to time. 

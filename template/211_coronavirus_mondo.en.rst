@@ -128,6 +128,45 @@ Remarks
 
 The most recent remarks precede those temporally more dated.
 
+*[June 23, 2020]* It is with dismay and pain I observe the trends of contagions in the
+United States and Brazil. These countries are applying policies
+of outbreak containment very mild. And we observe the result at
+the relative curve of the total cases.
+
+By now the United States has exceeded two million and three hundred thousand total cases,
+with over 120000 deaths. While Brazil in just over two months has
+exceeded one million total cases, with over 50000 deaths.
+
+About the painful aspect of deaths. While I can think,
+to a certain point, the
+US health service may be more advanced than that of the European Union
+(which with fewer total cases: one million two hundred thousand, had had more deaths:
+over one hundred and thirty thousand), I struggle to accept the same consideration
+for the Brazilian health system. In this case I fear that many deaths
+take place outside hospitals and/or that in any case they are not 
+diagnosed as due to COVID-19 infection.
+
+Given the current behavior of these countries, to lessen the impacts on the economy
+they don't follow lockdown health policies, I'm afraid we'll see what it is going to be
+the effectiveness of the concept of herd immunity. I just hope the medicine
+will make rapid progress in developing appropriate care. Because if
+herd immunity will be achieved with 60% of the infected population
+(this was the hypothesis in Great Britain), considering the population
+of about 330 million people of US, we will reach 198 million
+total cases before to achieve herd immunity. And if the mortality will remain the current one (5.2% of
+total cases), the US would experience the appalling figure of around 10 million deaths.
+
+And at this moment I am also worried about the situation in India, whose curve
+of the total cases get a polynomial trend with upward concavity.
+A sign that the lockdown policy is ineffective.
+Again here the percentage of deaths attributed to COVID-19 is
+much lower than that measured in the European Union. And even in this case I don't think 
+the health service is better of EU health service.
+Furthermore, here we are talking about one billion and three hundred million people. The global 
+impact as loss of life would be tremendous.
+
+*[June 23, 2020 - end]*
+
 *[April 15, 2020]* In Europe we observe that the curves of the total cases 
 of Spain and Italy begin to flatten out. This is indicative of the fact
 that in these two nations the epidemic begins to slow down. Even Germany

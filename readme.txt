@@ -16,3 +16,7 @@ to reinstall required packets::
   pip install -r requirements.txt
   
 pandas tutorial for beginners: https://www.learndatasci.com/tutorials/python-pandas-tutorial-complete-introduction-for-beginners/
+
+remark: converting file COVID-19-geographic-disbtribution-worldwide.xlsx to csv 
+format generate a wrong denomination for Curaçao. The ç character is bad coded.
+So it is necessary edit this country name(s).

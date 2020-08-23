@@ -170,7 +170,8 @@ COLUMNS_WORLD = {
         'deaths': 'decessi',
         'countriesAndTerritories': 'paesi',
         'geoId': 'geoid',
-        'popData2018': 'popolazione',
+        #'popData2018': 'popolazione',
+        'popData2019': 'popolazione',
     },
     'en': {
         'dateRep': 'date',
@@ -181,7 +182,8 @@ COLUMNS_WORLD = {
         'deaths': 'death',
         'countriesAndTerritories': 'country',
         'geoId': 'geoid',
-        'popData2018': 'population',
+        #'popData2018': 'population',
+        'popData2019': 'population',
     }
 }
 # END   columns of pandas dataframe from csv and excel files

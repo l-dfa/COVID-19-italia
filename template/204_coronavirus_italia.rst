@@ -22,6 +22,8 @@ Andamento temporale del Coronavirus Covid-19 in Italia
 
 *Dati aggiornati al ${UPDATED}*.
 
+L'osservazione più recente è del `06 Luglio 2020`_.
+
 Questo articolo riporta l'andamento temporale dei dati del Ministero della Sanità
 diffusi dalla Protezione Civile 
 relativi all'epidemia di COVID-19 che ha colpito l'Italia dal febbraio 2020.
@@ -152,7 +154,7 @@ la possibilità di contrastare la diffusione. Ed è quello che stiamo osservando
 nel nostro andamento reale dei *nuovi casi giornalieri*. Per vedere una somiglianza 
 con la curva qui sopra si deve fare un bello sforzo di immaginazione.
 Sopratutto, l'andamento dei casi dopo il picco non sembra diminuire 
-come indicato dal modello teorico. Piuttosto, si ha la senzazione di assistere
+come indicato dal modello teorico. Piuttosto, si ha la sensazione di assistere
 a una lentissima diminuizione con andamento lineare.
 
 Credo che la chiave di volta consista nell'isolamento dei positivi asintomatici.
@@ -166,6 +168,34 @@ Osservazioni
 ---------------------
 
 Le osservazioni più recenti precedono quelle temporalmente più datate.
+
+[_`06 Luglio 2020`]. Dopo una lunga pausa, aggiungo una nota in un momento delicato.
+
+Dal 3 Giugno in Italia stiamo vivendo la riapertura quasi completa delle attività. 
+Inoltre, fino a due giorni fa, abbiamo osservato una lenta ma costante
+decrescita dei casi *positivi*.
+
+Ma da due giorni la tendenza dei casi *positivi* si è invertita. Si tratta
+di oscillazioni di modesta entità. Il dato nazionale ieri era +21, e oggi è +67.
+Ma è un fatto che la curva
+dei positivi ha ripreso a crescere. *Non è una buona notizia*.
+
+Ritengo che l'attuale politica del "*isola il focolaio*" richieda molto impegno,
+ed una estesa campagna di screening degli asintomatici. Campagna che in Italia non 
+è mai stata attuata. Se a ciò si associa anche la mancanza di controlli 
+delle norme di distanziamento e di igiene (mascherina e mani pulite)
+da parte delle forze dell'ordine, il risultato non potrà essere 
+positivo.
+
+Una osservazione riguardo il Lazio. Osservo che è arrivato ad avere 870 casi *positivi*,
+di cui 212 ricoverati in ospedale. Mentre il numero di ospedalizzati è
+confrontabile con la Lombardia, il numero dei positivi si sta avvicinando al migliaio.
+Allinando il Lazio a regioni come il Piemonte (1208 positivi) e l'Emilia-Romagna (1064 positivi).
+Se fossi Zingaretti (l'attuale Governatore della regione, segretario del Partito Democratico)
+mi preoccuperei e cercherei il modo di dedicare maggiore attenzione
+ai problemi della regione che dovrebbe governare.
+
+*[06 Luglio 2020 - fine]*
 
 *[12 Aprile 2020]*. Il Governo continua a dirci che le cose stanno costantemente
 migliorando. Il fatto è che tendono a presentare di volta in volta i dati 
